@@ -1,4 +1,4 @@
-# Advanced Introduction to Machine Learning
+# Adv-Intro-ML
 Collection of ML / DL assignments completed in my Advanced Introduction to Machine Learning Course at The University of Washington
 
 Projects
