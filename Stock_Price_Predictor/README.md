@@ -4,7 +4,7 @@ This project was done for The University of Washington's Professional Master's P
 
 ## Introduction
 
-This project, as indicated by the name, was a stock price predictor which informed the user whether it was a good time to buy, sell or hold. This was a partner project and we chose to use 5 stocks from the NASDAQ, namely AMZN, GOOGL, AAPL, NVDA and AMD. There were two result sections for this assignment, backtesting and live trading. 
+This project, as indicated by the name, was a stock price predictor which informed the user whether it was a good time to buy, sell or hold. This was a partner project and we chose to use 5 stocks from the NASDAQ, namely AMZN, GOOGL, AAPL, NVDA and AMD. There were two result sections for this assignment, backtesting and live paper trading. 
 
 ## Dataset
 
@@ -58,7 +58,7 @@ Feed Forward Neural Network (Dense):
 - *Optimizer:* Adam
 - *Target:* 0,1,2 for hold, buy and sell respectively
 
-## Results
+## Results - Backtesting
 
 Example snippets of buy/sell graphs for the strategies can be found below, all showing the same example stock: AMZN. 
 
@@ -90,8 +90,16 @@ Overall, the below profits table shows the most successful algorithm as the LR m
 
 ![percent_profits](https://user-images.githubusercontent.com/72525765/180104482-2ca26b6f-1e85-4b02-aeea-100a00fd8760.PNG)
 
+## Results - Live Paper Trading
+
+The code in the Live Paper Trading notebook is largely the same as the code in the backtesting with a few more functions implemented for live trading.
+
+At the time of testing this algorithm live, the country entered into a downturn in the market which proved deadly to our algorithms. Since we only traded for a period of 5 days, we saw significant force sell losses at the end of the trading period. Given longer trading periods, we believe the results for live paper trading would be significantly different, as was modeled and proved in our backtesting.
+
+Please see the pdf Mini Project 1 Q2 Report for a full breakdown of the buy/sell and profit losses from live paper trading!
+
 ## The code
-The code notebook (Mini_Project_1_Q1_Backtesting.ipynb) is here on the repo and can be used at your preference. Enjoy the code, and thanks for reading through this!
+The code notebook for backtesting (Mini_Project_1_Q1_Backtesting.ipynb) is here on the repo and can be used at your preference, for live trading implementation, please see the notebook Mini_Project_1_Q2_LivePaperTrading.ipynb. Enjoy the code, and thanks for reading through this!
 
 ## Libraries used
 alpaca_trade_api, numpy, pandas, sklearn, tensorflow, and prophet
