@@ -26,15 +26,15 @@ To tackle this very complex problem, we decided to first make a few baseline mod
 ### Baseline Models 
 Simple Moving Average:
 
-The SMA was calculated as the the mean of the closing stock prices over a given window.
+The SMA was calculated as the the mean of the closing stock prices over a given window. This algorithm predicted buy when the mean began to increase, and sell when the mean began to decrease. This method was not very effective as it always lagged behind the actual stock price.
 
 Exponential Moving Average:
 
-The EMA was calculated once and updated with each new stock closing price value. The initial calculation of the EMA used previous days stock closing prices, a variable beta and the mean of the data. The update calculation simply used the existing EMA, beta and the new closing price value. 
+The EMA was calculated once and updated with each new stock closing price value. The initial calculation of the EMA used previous days stock closing prices, a variable beta and the mean of the data. The update calculation simply used the existing EMA, beta and the new closing price value. The buying and selling of the stock saw little improvement with this method versus the previous, this is because the exponential nature of the method gave better trend lines for a buy and sell predictor.
 
 Crossover:
 
-The crossover strategy was a simple implementation of predicting buy, sell or hold of a stock. It used the values of SMA for a given day. This method predicted buy if the previous days fast moving average (fSMA) was less than the previous days slow moving average (sSMA) AND the new days fSMA was greater than the new days sSMA. Visualizing that, it predicts buy if the stock is on the rise, and sell if the stock is on the fall, but never is able to predict buy or sell when the stock is truly at the valley or peak of the market.
+The crossover strategy was a simple implementation of predicting buy, sell or hold of a stock. It used two averages, a fast moving and a slow moving average, which either of these averages could be SMA or EMA. This method predicted buy if the previous days fast moving average (fSMA or fEMA) was less than the previous days slow moving average (sSMA or sEMA) AND the new days fSMA/fEMA was greater than the new days sSMA/sEMA. Visualizing that, it predicts buy if the stock is on the rise, and sell if the stock is on the fall, but never is able to predict buy or sell when the stock is truly at the valley or peak of the market.
 
 ### More Complex Models
 
@@ -48,7 +48,7 @@ Logistic Regression (Ridge Classifier from sklearn):
 - *max_iter:* 800
 - *alpha:* [0.01, 0.00009, 0.0009, 0.0009, 0.0009] for stocks ['AMZN', 'GOOGL', 'AAPL', 'NVDA', 'AMD']
 
-Feed Forward Neural Network:
+Feed Forward Neural Network (Dense):
 
 - *API:* Keras Sequenial Model
 - *Layer Count:* 5
@@ -60,8 +60,38 @@ Feed Forward Neural Network:
 
 ## Results
 
+Example snippets of buy/sell graphs for the strategies can be found below, all showing the same example stock: AMZN. 
+
+Crossover fSMA/sSMA: As you can see below, this crossover strategy was not performing as well as had hoped, but it did manage to buy the stock and sell it at a higher price before the market when down. Although this method appears to buy and sell at non ideal times, it accumulated a net 1.3% profit. 
+
+![crossover_amzn](https://user-images.githubusercontent.com/72525765/180101545-c6d9436f-87d0-4ea0-bb10-a776e1c11d6f.PNG)
+
+Crossover fEMA/sSMA: Similarly to the above graph, this crossover strategy was also not very effective. However, it does make certain buys and sells at good times and thus did result in a positive net profit, but only ever so slightly.
+
+![crossover_amzn_emasma](https://user-images.githubusercontent.com/72525765/180102347-d419a7c4-1624-48eb-a7a5-d2c938d6b81f.PNG)
+
+Crossover fEMA/sEMA: This strategy performed about on par with the first crossover strategy but made a signifcantly greater amound of buys and sells. There are some buy and sell decisions in this graph that are very good points to buy and sell, but conversely this algorithm also made a lot of poor predictions, causing the overall profits to only be 1.25%.
+
+![crossover_amzn_emaema](https://user-images.githubusercontent.com/72525765/180102616-915ccaee-7ebc-4f29-96f4-99f870d70fd9.PNG)
+
+STL: STL showed much greater promise with the buy and sell pattern. With a total of 6.42% profit gain from this buy/sell pattern, STL did a much better job of buying low and selling high. This is heavily based on the type of algorithm used, as STL is a much more complicated algorithm from Facebooks Prophet API. 
+
+![stl_amzn](https://user-images.githubusercontent.com/72525765/180103241-ae3150d2-bc65-4e8d-9990-5720a1c40db0.PNG)
+
+Logistic Regression: The dataframe that I created for this model was using feature stacking. As can be seen below, the LR model was a heavy 'buy on the downslope' type of algorithm. To counter this effect, I implemented an algorithm to perform dollar cost averaging, so it buys heavier as it goes down the slope. This model doesn't always buy at the best times, nor sell at the best times, but it did manage to achieve a 7.06% profit on the stock. 
+
+![LR_amzn](https://user-images.githubusercontent.com/72525765/180103565-59a446e1-fc4e-46ef-9bf8-2c2ae8d85192.PNG)
+
+Dense Net: The dense network for this stock was not as successful as other stocks, however it was still a positive percent profit at 1.56%. Since the model also has a similar buying pattern to the LR model, I implemented dollar cost averaging to this model as well. 
+
+![densenet_amzn](https://user-images.githubusercontent.com/72525765/180104280-d08f2961-382d-4d01-a2c8-3ab571baaa29.PNG)
+
+Overall, the below profits table shows the most successful algorithm as the LR model at a net gain across all stocks as 3.39% on backtesting. 
+
+![percent_profits](https://user-images.githubusercontent.com/72525765/180104482-2ca26b6f-1e85-4b02-aeea-100a00fd8760.PNG)
+
 ## The code
-The code notebook is here on the repo and can be used at your preference. I have many imputation and cleaning definitions that could be found useful with similar datasets. Enjoy the code!
+The code notebook is here on the repo and can be used at your preference. Enjoy the code!
 
 ## Libraries used
 alpaca_trade_api, numpy, pandas, sklearn, tensorflow, and prophet
