@@ -102,5 +102,4 @@ Please see the pdf Mini Project 1 Q2 Report for a full breakdown of the buy/sell
 The code notebook for backtesting (Mini_Project_1_Q1_Backtesting.ipynb) is here on the repo and can be used at your preference, for live trading implementation, please see the notebook Mini_Project_1_Q2_LivePaperTrading.ipynb. Enjoy the code, and thanks for reading through this!
 
 ## Libraries used
-alpaca_trade_api, numpy, pandas, sklearn, tensorflow, and prophet
-
+alpaca_trade_api, numpy, pandas, matplotlib, sklearn, tensorflow, and prophet
