@@ -91,7 +91,7 @@ Overall, the below profits table shows the most successful algorithm as the LR m
 ![percent_profits](https://user-images.githubusercontent.com/72525765/180104482-2ca26b6f-1e85-4b02-aeea-100a00fd8760.PNG)
 
 ## The code
-The code notebook is here on the repo and can be used at your preference. Enjoy the code!
+The code notebook (Mini_Project_1_Q1_Backtesting.ipynb) is here on the repo and can be used at your preference. Enjoy the code, and thanks for reading through this!
 
 ## Libraries used
 alpaca_trade_api, numpy, pandas, sklearn, tensorflow, and prophet
